@@ -1,8 +1,7 @@
-## 2022 winter-vue-week2
-#### 第二週 - RESTful API 串接
-- 使用者可以從登入頁面登入，並轉到後台商品頁面
-- 使用者若無登入直接進入商品頁面，會被導回登入頁面
-- 使用者可以查看產品列表
-- 使用者可以點擊單一產品，查看詳細資訊
+## 2022 winter-vue-week3
+#### 第三週 - 熟練 Vue.js
+- 串接 API 完成一頁式的產品新增、刪除、修改的頁面
+-- 可以新增、編輯、刪除商品
+-- 商品啟用、關閉可以使用不同的顏色標示
 
-#### Demo: https://yokozeng.github.io/2022winter-vue-week2/login
+#### Demo: https://yokozeng.github.io/2022winter-vue-week3/login
