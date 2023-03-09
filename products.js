@@ -1,4 +1,5 @@
 import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+import pagination from "./pagination.js";
 
 const site = "https://vue3-course-api.hexschool.io";
 const api_path = "yokozeng-vue";
@@ -23,7 +24,11 @@ const app = createApp({
         imagesUrl: [],
       },
       isAdd: false, //true為新增；false為編輯
+      page: 1,
     };
+  },
+  components: {
+    pagination,
   },
   mounted() {
     //取得cookie裡的token
@@ -57,13 +62,14 @@ const app = createApp({
     },
 
     /*取得產品列表*/
-    getProducts() {
-      const url = `${site}/v2/api/${api_path}/admin/products/all`;
+    getProducts(page = 1) {
+      const url = `${site}/v2/api/${api_path}/admin/products/?page=${page}`;
       axios
         .get(url)
         .then((res) => {
           //console.log(res);
           this.products = res.data.products;
+          this.page = res.data.pagination;
         })
         .catch((err) => {
           console.log(err);
