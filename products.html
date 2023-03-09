@@ -79,7 +79,7 @@
         </table>
         <pagination :pages="page" :get-products="getProducts"></pagination>
       </div>
-      <!-- Modal -->
+      <!-- 新增/編輯 Modal -->
       <div
         id="productModal"
         ref="productModal"
@@ -88,194 +88,15 @@
         aria-labelledby="productModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content border-0">
-            <div class="modal-header bg-dark text-white">
-              <h5 id="productModalLabel" class="modal-title">
-                <span>新增產品</span>
-              </h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-sm-8">
-                  <div class="mb-3">
-                    <label for="title" class="form-label">標題</label>
-                    <input
-                      id="title"
-                      type="text"
-                      class="form-control"
-                      placeholder="請輸入標題"
-                      v-model="addProductData.title"
-                    />
-                  </div>
-
-                  <div class="row">
-                    <div class="mb-3 col-md-6">
-                      <label for="category" class="form-label">分類</label>
-                      <input
-                        id="category"
-                        type="text"
-                        class="form-control"
-                        placeholder="請輸入分類"
-                        v-model="addProductData.category"
-                      />
-                    </div>
-                    <div class="mb-3 col-md-6">
-                      <label for="price" class="form-label">單位</label>
-                      <input
-                        id="unit"
-                        type="text"
-                        class="form-control"
-                        placeholder="請輸入單位"
-                        v-model="addProductData.unit"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="mb-3 col-md-6">
-                      <label for="origin_price" class="form-label">原價</label>
-                      <input
-                        id="origin_price"
-                        type="number"
-                        min="0"
-                        class="form-control"
-                        placeholder="請輸入原價"
-                        v-model="addProductData.origin_price"
-                      />
-                    </div>
-                    <div class="mb-3 col-md-6">
-                      <label for="price" class="form-label">售價</label>
-                      <input
-                        id="price"
-                        type="number"
-                        min="0"
-                        class="form-control"
-                        placeholder="請輸入售價"
-                        v-model="addProductData.price"
-                      />
-                    </div>
-                  </div>
-                  <hr />
-
-                  <div class="mb-3">
-                    <label for="description" class="form-label">產品描述</label>
-                    <textarea
-                      id="description"
-                      type="text"
-                      class="form-control"
-                      placeholder="請輸入產品描述"
-                      v-model="addProductData.description"
-                    >
-                    </textarea>
-                  </div>
-                  <div class="mb-3">
-                    <label for="content" class="form-label">說明內容</label>
-                    <textarea
-                      id="description"
-                      type="text"
-                      class="form-control"
-                      placeholder="請輸入說明內容"
-                      v-model="addProductData.content"
-                    >
-                    </textarea>
-                  </div>
-                  <div class="mb-3">
-                    <div class="form-check">
-                      <input
-                        id="is_enabled"
-                        class="form-check-input"
-                        type="checkbox"
-                        :true-value="1"
-                        :false-value="0"
-                        v-model="addProductData.is_enabled"
-                      />
-                      <label class="form-check-label" for="is_enabled"
-                        >是否啟用</label
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="mb-2">
-                    <label for="imageUrl" class="form-label"
-                      >輸入圖片網址</label
-                    >
-                    <template
-                      v-for="(img, key) in addProductData.imagesUrl"
-                      :key="0+key"
-                    >
-                      <div class="mb-1 d-flex align-items-center">
-                        <div class="me-1">({{key+1}})</div>
-                        <input
-                          type="text"
-                          class="form-control me-2"
-                          placeholder="請輸入圖片連結"
-                          v-model="addProductData.imagesUrl[key]"
-                        />
-                        <button
-                          type="button"
-                          class="btn btn-outline-danger"
-                          @click="deleteImg(key)"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            class="bi bi-trash3"
-                            viewBox="0 0 16 16"
-                          >
-                            <path
-                              d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"
-                            ></path>
-                          </svg>
-                        </button>
-                      </div>
-                      <img
-                        class="img-fluid mb-4"
-                        :src="addProductData.imagesUrl[key]"
-                        alt=""
-                      />
-                    </template>
-                  </div>
-                  <div>
-                    <button
-                      :disabled="addProductData.imagesUrl && !addProductData.imagesUrl[addProductData.imagesUrl.length-1] && addProductData.imagesUrl[0]"
-                      class="btn btn-outline-primary btn-sm d-block w-100"
-                      @click="addImg"
-                    >
-                      新增圖片
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-outline-secondary"
-                data-bs-dismiss="modal"
-              >
-                取消
-              </button>
-              <button
-                type="button"
-                class="btn btn-primary"
-                @click="updatedProduct"
-              >
-                確認
-              </button>
-            </div>
-          </div>
-        </div>
+        <product-modal
+          :add-product-data="addProductData"
+          :add-img="addImg"
+          :delete-img="deleteImg"
+          :updated-product="updatedProduct"
+        ></product-modal>
       </div>
+
+      <!-- 刪除 Modal -->
       <div
         id="delProductModal"
         ref="delProductModal"
@@ -284,44 +105,238 @@
         aria-labelledby="delProductModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content border-0">
-            <div class="modal-header bg-danger text-white">
-              <h5 id="delProductModalLabel" class="modal-title">
-                <span>刪除產品</span>
-              </h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              是否刪除
-              <strong class="text-danger">{{addProductData.title}}</strong>
-              商品(刪除後將無法恢復)。
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-outline-secondary"
-                data-bs-dismiss="modal"
-              >
-                取消
-              </button>
-              <button
-                type="button"
-                class="btn btn-danger"
-                @click="deleteProduct"
-              >
-                確認刪除
-              </button>
-            </div>
-          </div>
-        </div>
+        <del-product-modal :delete-product="deleteProduct" :add-product-data="addProductData"></del-product-modal>
       </div>
     </div>
+
+    <script type="text/x-template" id="product-modal-template">
+      <div class="modal-dialog modal-xl">
+              <div class="modal-content border-0">
+                <div class="modal-header bg-dark text-white">
+                  <h5 id="productModalLabel" class="modal-title">
+                    <span>新增產品</span>
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-8">
+                      <div class="mb-3">
+                        <label for="title" class="form-label">標題</label>
+                        <input
+                          id="title"
+                          type="text"
+                          class="form-control"
+                          placeholder="請輸入標題"
+                          v-model="addProductData.title"
+                        />
+                      </div>
+
+                      <div class="row">
+                        <div class="mb-3 col-md-6">
+                          <label for="category" class="form-label">分類</label>
+                          <input
+                            id="category"
+                            type="text"
+                            class="form-control"
+                            placeholder="請輸入分類"
+                            v-model="addProductData.category"
+                          />
+                        </div>
+                        <div class="mb-3 col-md-6">
+                          <label for="price" class="form-label">單位</label>
+                          <input
+                            id="unit"
+                            type="text"
+                            class="form-control"
+                            placeholder="請輸入單位"
+                            v-model="addProductData.unit"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="mb-3 col-md-6">
+                          <label for="origin_price" class="form-label">原價</label>
+                          <input
+                            id="origin_price"
+                            type="number"
+                            min="0"
+                            class="form-control"
+                            placeholder="請輸入原價"
+                            v-model="addProductData.origin_price"
+                          />
+                        </div>
+                        <div class="mb-3 col-md-6">
+                          <label for="price" class="form-label">售價</label>
+                          <input
+                            id="price"
+                            type="number"
+                            min="0"
+                            class="form-control"
+                            placeholder="請輸入售價"
+                            v-model="addProductData.price"
+                          />
+                        </div>
+                      </div>
+                      <hr />
+
+                      <div class="mb-3">
+                        <label for="description" class="form-label">產品描述</label>
+                        <textarea
+                          id="description"
+                          type="text"
+                          class="form-control"
+                          placeholder="請輸入產品描述"
+                          v-model="addProductData.description"
+                        >
+                        </textarea>
+                      </div>
+                      <div class="mb-3">
+                        <label for="content" class="form-label">說明內容</label>
+                        <textarea
+                          id="description"
+                          type="text"
+                          class="form-control"
+                          placeholder="請輸入說明內容"
+                          v-model="addProductData.content"
+                        >
+                        </textarea>
+                      </div>
+                      <div class="mb-3">
+                        <div class="form-check">
+                          <input
+                            id="is_enabled"
+                            class="form-check-input"
+                            type="checkbox"
+                            :true-value="1"
+                            :false-value="0"
+                            v-model="addProductData.is_enabled"
+                          />
+                          <label class="form-check-label" for="is_enabled"
+                            >是否啟用</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="mb-2">
+                        <label for="imageUrl" class="form-label"
+                          >輸入圖片網址</label
+                        >
+                        <template
+                          v-for="(img, key) in addProductData.imagesUrl"
+                          :key="0+key"
+                        >
+                          <div class="mb-1 d-flex align-items-center">
+                            <div class="me-1">({{key+1}})</div>
+                            <input
+                              type="text"
+                              class="form-control me-2"
+                              placeholder="請輸入圖片連結"
+                              v-model="addProductData.imagesUrl[key]"
+                            />
+                            <button
+                              type="button"
+                              class="btn btn-outline-danger"
+                              @click="deleteImg(key)"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                fill="currentColor"
+                                class="bi bi-trash3"
+                                viewBox="0 0 16 16"
+                              >
+                                <path
+                                  d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"
+                                ></path>
+                              </svg>
+                            </button>
+                          </div>
+                          <img
+                            class="img-fluid mb-4"
+                            :src="addProductData.imagesUrl[key]"
+                            alt=""
+                          />
+                        </template>
+                      </div>
+                      <div>
+                        <button
+                          :disabled="addProductData.imagesUrl && !addProductData.imagesUrl[addProductData.imagesUrl.length-1] && addProductData.imagesUrl[0]"
+                          class="btn btn-outline-primary btn-sm d-block w-100"
+                          @click="addImg"
+                        >
+                          新增圖片
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    取消
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    @click="updatedProduct"
+                  >
+                    確認
+                  </button>
+                </div>
+              </div>
+            </div>
+    </script>
+
+    <script type="text/x-template" id="del-product-modal-template">
+      <div class="modal-dialog">
+              <div class="modal-content border-0">
+                <div class="modal-header bg-danger text-white">
+                  <h5 id="delProductModalLabel" class="modal-title">
+                    <span>刪除產品</span>
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  是否刪除
+                  <strong class="text-danger">{{addProductData.title}}</strong>
+                  商品(刪除後將無法恢復)。
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    取消
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    @click="deleteProduct"
+                  >
+                    確認刪除
+                  </button>
+                </div>
+              </div>
+            </div>
+    </script>
 
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.min.js"

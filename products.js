@@ -62,7 +62,7 @@ const app = createApp({
     },
 
     /*取得產品列表*/
-    getProducts(page = 1) {
+    getProducts(page) {
       const url = `${site}/v2/api/${api_path}/admin/products/?page=${page}`;
       axios
         .get(url)
@@ -162,6 +162,16 @@ const app = createApp({
         });
     },
   },
+});
+
+app.component('product-modal',{
+    props:['addProductData','addImg','updatedProduct','deleteImg'],
+    template: '#product-modal-template',
+});
+
+app.component('del-product-modal',{
+    props:['deleteProduct','addProductData'],
+    template: '#del-product-modal-template',
 });
 
 app.mount("#app");
